@@ -4,7 +4,7 @@ const Product = require("./models/productModel");
 const app = express();
 
 app.use(express.json()); //middleware
-
+app.use(express.urlencoded({ extended: false }));
 //router
 
 app.get("/", (req, res) => {
@@ -47,7 +47,24 @@ app.post("/products", async (req, res) => {
 // });
 
 //update a product
-// app.put("products:id", asyn); //can use put or patch method
+app.put("/products/:id", async (req, res) => {
+  //can use put or patch method
+  try {
+    const { id } = req.params;
+    const product = await Product.findByIdAndUpdate(id, req.body);
+    if (!product) {
+      return res
+        .status(404)
+        .json({ message: `cannot find any product with ID ${id}` });
+    }
+    const updatedProduct = await Product.findById(id);
+    res.status(200).json(updatedProduct);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+//delete a product
 
 mongoose.set("strictQuery", false); //rather than schema nothing can be sent
 
