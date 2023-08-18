@@ -3,6 +3,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 // const Product = require("./models/productModel");
 const productRoute = require("./routes/productRoute");
+// const userRoute = require("./routes/userRoute");
+
+const errorMiddleware = require("./middleware/errorMiddleware");
 
 const app = express();
 
@@ -15,10 +18,14 @@ app.use(express.urlencoded({ extended: false }));
 //routes
 
 app.use("/api", productRoute);
+// app.use("/api/users", userRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello Node API");
+  // throw new Error("fake error");
 });
+
+app.use(errorMiddleware);
 
 // app.listen(3000, () => {
 //   console.log("API running on port 3000");
