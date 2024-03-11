@@ -6,15 +6,15 @@ const productRoute = require("./routes/productRoute");
 // const userRoute = require("./routes/userRoute");
 
 const errorMiddleware = require("./middleware/errorMiddleware");
-
+var cors = require("cors");
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 const MONGO_URL = process.env.MONGO_URL;
 
+app.use(cors());
 app.use(express.json()); //middleware
 app.use(express.urlencoded({ extended: false }));
-
 //routes
 
 app.use("/api", productRoute);
