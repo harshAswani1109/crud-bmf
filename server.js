@@ -5,6 +5,21 @@ const mongoose = require("mongoose");
 const productRoute = require("./routes/productRoute");
 // const userRoute = require("./routes/userRoute");
 
+const {initializeApp} = require("firebase/app");
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD8atqyrV-ngf8XjCDXQQND6vEKxpVNhFk",
+  authDomain: "bmf-crud.firebaseapp.com",
+  projectId: "bmf-crud",
+  storageBucket: "bmf-crud.appspot.com",
+  messagingSenderId: "1034308123877",
+  appId: "1:1034308123877:web:b744eab1df621b0040e80c"
+};
+
+
+
+const apps = initializeApp(firebaseConfig);
+
 const errorMiddleware = require("./middleware/errorMiddleware");
 var cors = require("cors");
 const app = express();
